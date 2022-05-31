@@ -27,18 +27,16 @@ class _CounterPageState extends State<CounterPage> {
               setState(() {
                 provider?.state.inc();
               });
-              print(provider?.state.value);
             },
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
           ),
           IconButton(
             onPressed: () {
               setState(() {
                 provider?.state.dec();
               });
-              print(provider?.state.value);
             },
-            icon: Icon(Icons.remove),
+            icon: const Icon(Icons.remove),
           )
         ],
       ),

@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:shop/components/cart_item.dart';
 import 'package:shop/models/cart.dart';
 import 'package:shop/models/order_list.dart';
-import 'package:shop/providers/counter.dart';
-import 'package:intl/intl.dart' as intl;
 
 class CartPage extends StatelessWidget {
   const CartPage({
@@ -38,11 +36,11 @@ class CartPage extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Chip(
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     label: Text(
-                      'R\$${cart.totalAmount}',
+                      'R\$${cart.totalAmount.toStringAsFixed(2)}',
                       style: TextStyle(
                           color: Theme.of(context)
                               .primaryTextTheme
@@ -59,7 +57,8 @@ class CartPage extends StatelessWidget {
                       ).addOrder(cart);
                       cart.clear();
                     },
-                    child: Text('COMPRAR'),
+                    // ignore: sort_child_properties_last
+                    child: const Text('COMPRAR'),
                     style: TextButton.styleFrom(
                         textStyle: TextStyle(
                             color: Theme.of(context).colorScheme.primary)),

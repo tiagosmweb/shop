@@ -12,9 +12,9 @@ class OrdersPage extends StatelessWidget {
     final OrderList orders = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Meus Pedidos'),
+        title: const Text('Meus Pedidos'),
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: ListView.builder(
         itemCount: orders.itemsCount,
         itemBuilder: (ctx, i) => OrderWidget(

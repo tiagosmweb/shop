@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:shop/models/product.dart';
 
@@ -26,15 +28,15 @@ class ProductDatailsPage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'R\$ ${product.price}',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 20,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,

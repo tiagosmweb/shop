@@ -1,10 +1,11 @@
+// ignore_for_file: constant_identifier_names, sort_child_properties_last
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/components/app_drawer.dart';
 import 'package:shop/components/badge.dart';
 import 'package:shop/components/product_grid.dart';
 import 'package:shop/models/cart.dart';
-import 'package:shop/models/product_list.dart';
 import 'package:shop/utils/app_routes.dart';
 
 enum FilterOptions {
@@ -30,12 +31,12 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
         actions: [
           PopupMenuButton(
             itemBuilder: (_) => [
-              PopupMenuItem(
-                child: const Text('Somente Favoritos'),
+              const PopupMenuItem(
+                child: Text('Somente Favoritos'),
                 value: FilterOptions.Favorite,
               ),
-              PopupMenuItem(
-                child: const Text('Todos'),
+              const PopupMenuItem(
+                child: Text('Todos'),
                 value: FilterOptions.All,
               ),
             ],
@@ -56,7 +57,7 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
                 onPressed: () {
                   Navigator.of(context).pushNamed(AppRoutes.CART);
                 },
-                icon: Icon(Icons.shopping_cart),
+                icon: const Icon(Icons.shopping_cart),
               ),
             ),
           )
@@ -66,7 +67,7 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
         padding: const EdgeInsets.all(10),
         child: ProductGrid(_showFavoriteOnly),
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
     );
   }
 }
