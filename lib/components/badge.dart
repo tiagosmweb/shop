@@ -1,6 +1,3 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
 import 'package:flutter/material.dart';
 
 class Badge extends StatelessWidget {
@@ -30,7 +27,7 @@ class Badge extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               color: color ?? Theme.of(context).colorScheme.secondary,
             ),
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxHeight: 16,
               minWidth: 16,
             ),
