@@ -15,7 +15,7 @@ class ProductList with ChangeNotifier {
     return _items.length;
   }
 
-  void addProductFromData(Map<String, Object> data) {
+  void saveProduct(Map<String, Object> data) {
     final newProduct = Product(
       id: Random().nextDouble().toString(),
       name: data['name'] as String,

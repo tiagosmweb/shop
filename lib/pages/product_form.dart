@@ -55,7 +55,7 @@ class _ProductFormState extends State<ProductForm> {
     Provider.of<ProductList>(
       context,
       listen: false,
-    ).addProductFromData(_formData);
+    ).saveProduct(_formData);
     Navigator.of(context).pop();
   }
 
