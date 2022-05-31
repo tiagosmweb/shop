@@ -65,7 +65,7 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: ProductGridItem(_showFavoriteOnly),
+        child: ProductGrid(_showFavoriteOnly),
       ),
       drawer: const AppDrawer(),
     );
