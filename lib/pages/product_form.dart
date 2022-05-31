@@ -1,10 +1,7 @@
 // ignore_for_file: sort_child_properties_last, no_leading_underscores_for_local_identifiers
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop/models/product.dart';
 import 'package:shop/models/product_list.dart';
 
 class ProductForm extends StatefulWidget {
@@ -55,18 +52,10 @@ class _ProductFormState extends State<ProductForm> {
 
     _formKey.currentState?.save();
 
-    final newProduct = Product(
-      id: Random().nextDouble().toString(),
-      name: _formData['name'] as String,
-      description: _formData['description'] as String,
-      price: _formData['price'] as double,
-      imageUrl: _formData['imageUrl'] as String,
-    );
-
     Provider.of<ProductList>(
       context,
       listen: false,
-    ).addProduct(newProduct);
+    ).addProductFromData(_formData);
     Navigator.of(context).pop();
   }
 
