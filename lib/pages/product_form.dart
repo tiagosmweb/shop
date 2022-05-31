@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last, no_leading_underscores_for_local_identifiers
+// ignore_for_file: sort_child_properties_last, no_leading_underscores_for_local_identifiers, prefer_collection_literals
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -130,6 +130,7 @@ class _ProductFormState extends State<ProductForm> {
                   if (price <= 0) {
                     return 'Informe um preço válido';
                   }
+                  return null;
                 },
               ),
               TextFormField(
