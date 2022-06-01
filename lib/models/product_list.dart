@@ -22,18 +22,16 @@ class ProductList with ChangeNotifier {
     _items.clear();
 
     final resp = await http.get(Uri.parse(_url));
-
     if (resp.body == 'null') return;
 
     Map<String, dynamic> data = jsonDecode(resp.body);
-    print(data);
     data.forEach((productId, productData) {
       _items.add(
         Product(
           id: productId,
           name: productData['name'],
           description: productData['description'],
-          price: double.parse(productData['price']),
+          price: productData['price'].toDouble(),
           imageUrl: productData['imageUrl'],
           isFavorite: productData['isFavorite'],
         ),
