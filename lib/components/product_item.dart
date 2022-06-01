@@ -22,7 +22,7 @@ class ProductItem extends StatelessWidget {
         title: Text(
           product.name,
         ),
-        trailing: Container(
+        trailing: SizedBox(
           width: 100,
           child: Row(
             children: [
