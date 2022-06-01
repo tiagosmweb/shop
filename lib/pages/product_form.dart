@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last, no_leading_underscores_for_local_identifiers, prefer_collection_literals, unused_field
+// ignore_for_file: sort_child_properties_last, no_leading_underscores_for_local_identifiers, prefer_collection_literals, unused_field, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -65,7 +65,7 @@ class _ProductFormState extends State<ProductForm> {
     return isValidUrl && endsWithFile;
   }
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     final isValid = _formKey.currentState?.validate() ?? false;
 
     if (!isValid) {
@@ -76,11 +76,14 @@ class _ProductFormState extends State<ProductForm> {
 
     setState(() => _isLoading = true);
 
-    Provider.of<ProductList>(
-      context,
-      listen: false,
-    ).saveProduct(_formData).catchError((error) {
-      return showDialog(
+    try {
+      await Provider.of<ProductList>(
+        context,
+        listen: false,
+      ).saveProduct(_formData);
+      Navigator.of(context).pop();
+    } catch (error) {
+      await showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
           title: const Text('Ocorreu um erro!'),
@@ -93,10 +96,9 @@ class _ProductFormState extends State<ProductForm> {
           ],
         ),
       );
-    }).then((value) {
+    } finally {
       setState(() => _isLoading = false);
-      Navigator.of(context).pop();
-    });
+    }
   }
 
   @override
