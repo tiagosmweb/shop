@@ -21,7 +21,9 @@ class ProductList with ChangeNotifier {
   Future<void> loadProducts() async {
     _items.clear();
 
-    final resp = await http.get(Uri.parse(_url));
+    final resp = await http.get(
+      Uri.parse('$_url.json'),
+    );
     if (resp.body == 'null') return;
 
     Map<String, dynamic> data = jsonDecode(resp.body);
@@ -60,7 +62,7 @@ class ProductList with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final resp = await http.post(
-      Uri.parse(_url),
+      Uri.parse('$_url.json'),
       body: jsonEncode(
         {
           "name": product.name,
@@ -85,10 +87,22 @@ class ProductList with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateProduct(Product product) {
+  Future<void> updateProduct(Product product) async {
     int index = _items.indexWhere((p) => p.id == product.id);
 
     if (index >= 0) {
+      await http.patch(
+        Uri.parse('$_url/${product.id}.json'),
+        body: jsonEncode(
+          {
+            "name": product.name,
+            "description": product.description,
+            "price": product.price,
+            "imageUrl": product.imageUrl,
+          },
+        ),
+      );
+
       _items[index] = product;
       notifyListeners();
     }
