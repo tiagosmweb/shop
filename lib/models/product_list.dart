@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, prefer_final_fields
+
 import 'dart:convert';
 import 'dart:math';
 
@@ -8,13 +10,16 @@ import 'package:shop/models/product.dart';
 import 'package:shop/utils/config.dart';
 
 class ProductList with ChangeNotifier {
-  final List<Product> _items = [];
+  final String _token;
+  List<Product> _items = [];
   // ignore: non_constant_identifier_names
   final _url_product = Config.PRODUCT_BASE_URL;
 
   List<Product> get items => [..._items];
   List<Product> get favoriteItems =>
       _items.where((prod) => prod.isFavorite).toList();
+
+  ProductList(this._token, this._items);
 
   int get itemsCount {
     return _items.length;
@@ -24,7 +29,7 @@ class ProductList with ChangeNotifier {
     _items.clear();
 
     final resp = await http.get(
-      Uri.parse('$_url_product.json'),
+      Uri.parse('$_url_product.json?auth=$_token'),
     );
     if (resp.body == 'null') return;
 
