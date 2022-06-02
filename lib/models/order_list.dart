@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:math';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/widgets.dart';
 import 'package:shop/models/cart.dart';
 import 'package:shop/models/order.dart';
+import 'package:shop/utils/config.dart';
 
 class OrderList with ChangeNotifier {
   final List<Order> _items = [];
@@ -14,14 +17,37 @@ class OrderList with ChangeNotifier {
     return _items.length;
   }
 
-  void addOrder(Cart cart) {
+  Future<void> addOrder(Cart cart) async {
+    final date = DateTime.now();
+
+    final resp = await http.post(
+      Uri.parse('${Config.ORDERS_BASE_URL}.json'),
+      body: jsonEncode({
+        'total': cart.totalAmount,
+        'date': date.toIso8601String(),
+        'products': cart.items.values
+            .map(
+              (cartItem) => {
+                'id': cartItem.id,
+                'productId': cartItem.productId,
+                'name': cartItem.name,
+                'quantity': cartItem.quantity,
+                'price': cartItem.price,
+              },
+            )
+            .toList(),
+      }),
+    );
+
+    final id = jsonDecode(resp.body)['name'];
+
     _items.insert(
       0,
       Order(
-        id: Random().nextDouble().toString(),
+        id: id,
         total: cart.totalAmount,
         products: cart.items.values.toList(),
-        date: DateTime.now(),
+        date: date,
       ),
     );
 
