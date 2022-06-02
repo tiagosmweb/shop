@@ -9,7 +9,8 @@ import 'package:shop/utils/config.dart';
 
 class ProductList with ChangeNotifier {
   final List<Product> _items = [];
-  final _url = Config.BASEURL;
+  // ignore: non_constant_identifier_names
+  final _url_product = Config.PRODUCT_BASE_URL;
 
   List<Product> get items => [..._items];
   List<Product> get favoriteItems =>
@@ -23,7 +24,7 @@ class ProductList with ChangeNotifier {
     _items.clear();
 
     final resp = await http.get(
-      Uri.parse('$_url.json'),
+      Uri.parse('$_url_product.json'),
     );
     if (resp.body == 'null') return;
 
@@ -63,7 +64,7 @@ class ProductList with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final resp = await http.post(
-      Uri.parse('$_url.json'),
+      Uri.parse('$_url_product.json'),
       body: jsonEncode(
         {
           "name": product.name,
@@ -93,7 +94,7 @@ class ProductList with ChangeNotifier {
 
     if (index >= 0) {
       await http.patch(
-        Uri.parse('$_url/${product.id}.json'),
+        Uri.parse('$_url_product/${product.id}.json'),
         body: jsonEncode(
           {
             "name": product.name,
@@ -122,7 +123,7 @@ class ProductList with ChangeNotifier {
       notifyListeners();
 
       final resp = await http.delete(
-        Uri.parse('$_url/${product.id}.json'),
+        Uri.parse('$_url_product/${product.id}.json'),
       );
 
       if (resp.statusCode >= 400) {
