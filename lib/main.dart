@@ -4,14 +4,13 @@ import 'package:shop/models/auth.dart';
 import 'package:shop/models/cart.dart';
 import 'package:shop/models/order_list.dart';
 import 'package:shop/models/product_list.dart';
-import 'package:shop/pages/auth.dart';
+import 'package:shop/pages/auth_or_home.dart';
 import 'package:shop/pages/cart.dart';
 import 'package:shop/pages/orders.dart';
 import 'package:shop/pages/product_details.dart';
 import 'package:shop/pages/product_form.dart';
 import 'package:shop/pages/products.dart';
 import 'package:shop/utils/app_routes.dart';
-import 'pages/products_overview.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,8 +47,7 @@ class MyApp extends StatelessWidget {
         ),
         // home: ProductsOverviewPage(),
         routes: {
-          AppRoutes.AUTH: (ctx) => const AuthPage(),
-          AppRoutes.HOME: (ctx) => const ProductsOverviewPage(),
+          AppRoutes.AUTH_OR_HOME: (ctx) => const AuthOrHomePage(),
           AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDatailsPage(),
           AppRoutes.CART: (ctx) => const CartPage(),
           AppRoutes.ORDERS: (ctx) => const OrdersPage(),
