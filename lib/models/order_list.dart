@@ -10,10 +10,12 @@ import 'package:shop/utils/config.dart';
 
 class OrderList with ChangeNotifier {
   final String _token;
+  final String _userId;
   List<Order> _items = [];
 
   OrderList([
     this._token = '',
+    this._userId = '',
     this._items = const [],
   ]);
 
@@ -29,7 +31,7 @@ class OrderList with ChangeNotifier {
     List<Order> items = [];
 
     final resp = await http.get(
-      Uri.parse('${Config.ORDERS_BASE_URL}.json?auth=$_token'),
+      Uri.parse('${Config.ORDERS_BASE_URL}/$_userId.json?auth=$_token'),
     );
 
     if (resp.body == 'null') return;
@@ -62,7 +64,7 @@ class OrderList with ChangeNotifier {
     final date = DateTime.now();
 
     final resp = await http.post(
-      Uri.parse('${Config.ORDERS_BASE_URL}.json?auth=$_token'),
+      Uri.parse('${Config.ORDERS_BASE_URL}/$_userId.json?auth=$_token'),
       body: jsonEncode({
         'total': cart.totalAmount,
         'date': date.toIso8601String(),
