@@ -11,6 +11,7 @@ import 'package:shop/utils/config.dart';
 
 class ProductList with ChangeNotifier {
   final String _token;
+  final String _userId;
   List<Product> _items = [];
   // ignore: non_constant_identifier_names
   final _url_product = Config.PRODUCT_BASE_URL;
@@ -21,6 +22,7 @@ class ProductList with ChangeNotifier {
 
   ProductList([
     this._token = '',
+    this._userId = '',
     this._items = const [],
   ]);
 
@@ -36,8 +38,16 @@ class ProductList with ChangeNotifier {
     );
     if (resp.body == 'null') return;
 
+    final favResp = await http.get(
+      Uri.parse('${Config.USER_FAVORITES_URL}/$_userId.json?auth=$_token'),
+    );
+
+    Map<String, dynamic> favData =
+        favResp.body == 'null' ? {} : jsonDecode(favResp.body);
+
     Map<String, dynamic> data = jsonDecode(resp.body);
     data.forEach((productId, productData) {
+      final isFavorite = favData[productId] ?? false;
       _items.add(
         Product(
           id: productId,
@@ -45,6 +55,7 @@ class ProductList with ChangeNotifier {
           description: productData['description'],
           price: productData['price'].toDouble(),
           imageUrl: productData['imageUrl'],
+          isFavorite: isFavorite,
         ),
       );
     });

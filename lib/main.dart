@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
           update: (ctx, auth, previous) {
             return ProductList(
               auth.token ?? '',
+              auth.userId ?? '',
               previous?.items ?? [],
             );
           },
